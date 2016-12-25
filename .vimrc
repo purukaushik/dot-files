@@ -21,9 +21,13 @@ Plugin 'nvie/vim-flake8'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'artur-shaik/vim-javacomplete2'
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-glaive'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
+call glaive#end()
 filetype plugin indent on    " required
 
 " PEP8 yo
