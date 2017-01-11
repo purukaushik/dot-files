@@ -1,9 +1,56 @@
+(setq warning-minimum-level :emergency)
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                      ("marmalade" . "http://marmalade-repo.org/packages/")
-                     ("melpa" . "http://melpa.org/packages/")))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+                     ("melpa" . "https://melpa.org/packages/")))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
 (setq package-list '(autopair el-get form-feed gist gh logito pcache git f dash s dash s git-gutter+ dash git-commit with-editor dash async dash idle-highlight-mode jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred jedi-core python-environment deferred epc ctable concurrent deferred js2-mode json-mode json-snatcher json-reformat json-reformat json-snatcher logito lua-mode markdown-mode pcache popup python-environment deferred s sublime-themes web-mode with-editor dash async yasnippet solarized))
+;; The packages you want installed. You can also install these
+;; manually with M-x package-install
+;; Add in your own as you wish:
+(defvar my-packages
+  '(;; makes handling lisp expressions much, much easier
+    ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
+    paredit
+
+    ;; key bindings and code colorization for Clojure
+    ;; https://github.com/clojure-emacs/clojure-mode
+    clojure-mode
+
+    ;; extra syntax highlighting for clojure
+    clojure-mode-extra-font-locking
+
+    ;; integration with a Clojure REPL
+    ;; https://github.com/clojure-emacs/cider
+    cider
+
+    ;; allow ido usage in as many contexts as possible. see
+    ;; customizations/navigation.el line 23 for a description
+    ;; of ido
+    ido-ubiquitous
+
+    ;; Enhances M-x to allow easier execution of commands. Provides
+    ;; a filterable list of possible commands in the minibuffer
+    ;; http://www.emacswiki.org/emacs/Smex
+    smex
+
+    ;; project navigation
+    projectile
+
+    ;; colorful parenthesis matching
+    rainbow-delimiters
+
+    ;; edit html tags like sexps
+    tagedit
+
+    ;; git integration
+    magit))
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -21,7 +68,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 158 :width normal)))))
+ '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 143 :width normal)))))
 (package-initialize)
 ;; THEME LOAD
 (load-theme 'solarized-light t)
@@ -41,3 +88,59 @@
 ;; JAVA INDENT
 (add-hook 'java-mode-hook (lambda ()
 			    (setq c-basic-offset 2)))
+(setq backup-directory-alist '(("." . "~/.saves")))
+
+;; ENSIME
+(use-package ensime
+	     :ensure t
+	     :pin melpa-stable)
+;; DISABLE FLYCHECK OVERALL FOR JAVA
+(global-flycheck-mode -1)
+
+;;CLOJURE SETUP
+;; Place downloaded elisp files in ~/.emacs.d/vendor. You'll then be able
+;; to load them.
+;;
+;; For example, if you download yaml-mode.el to ~/.emacs.d/vendor,
+;; then you can add the following code to this file:
+;;
+;; (require 'yaml-mode)
+;; (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+;; 
+;; Adding this code will make Emacs enter yaml mode whenever you open
+;; a .yml file
+(add-to-list 'load-path "~/.emacs.d/vendor")
+
+
+;;;;
+;; Customization
+;;;;
+
+;; Add a directory to our load path so that when you `load` things
+;; below, Emacs knows where to look for the corresponding file.
+(add-to-list 'load-path "~/.emacs.d/customizations")
+
+;; Sets up exec-path-from-shell so that Emacs will use the correct
+;; environment variables
+(load "shell-integration.el")
+
+;; These customizations make it easier for you to navigate files,
+;; switch buffers, and choose options from the minibuffer.
+(load "navigation.el")
+
+;; These customizations change the way emacs looks and disable/enable
+;; some user interface elements
+(load "ui.el")
+
+;; These customizations make editing a bit nicer.
+(load "editing.el")
+
+;; Hard-to-categorize customizations
+(load "misc.el")
+
+;; For editing lisps
+(load "elisp-editing.el")
+
+;; Langauage-specific
+(load "setup-clojure.el")
+(load "setup-js.el")
