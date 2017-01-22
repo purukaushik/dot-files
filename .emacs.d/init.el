@@ -56,6 +56,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(coffee-tab-width 2)
  '(custom-enabled-themes (quote (solarized-light)))
  '(custom-safe-themes
    (quote
@@ -68,7 +69,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 143 :width normal)))))
+ '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal)))))
 (package-initialize)
 ;; THEME LOAD
 (load-theme 'solarized-light t)
@@ -91,11 +92,16 @@
 (setq backup-directory-alist '(("." . "~/.saves")))
 
 ;; ENSIME
-(use-package ensime
-	     :ensure t
-	     :pin melpa-stable)
+;;(use-package ensime
+;;	     :ensure t
+;;	     :pin melpa-stable)
+;; MAVEN-MODE
+(add-to-list 'load-path "/home/kaushik/git/maven-pom-mode")
+(load "maven-pom-mode")
 ;; DISABLE FLYCHECK OVERALL FOR JAVA
+(setq-default flycheck-disabled-checkers '(jdee-flycheck-javac-checker))
 (global-flycheck-mode -1)
+(setq jdee-flycheck-enable-p nil)
 
 ;;CLOJURE SETUP
 ;; Place downloaded elisp files in ~/.emacs.d/vendor. You'll then be able
@@ -130,10 +136,10 @@
 
 ;; These customizations change the way emacs looks and disable/enable
 ;; some user interface elements
-(load "ui.el")
+;;(load "ui.el")
 
 ;; These customizations make editing a bit nicer.
-(load "editing.el")
+;;(load "editing.el")
 
 ;; Hard-to-categorize customizations
 (load "misc.el")
@@ -144,3 +150,6 @@
 ;; Langauage-specific
 (load "setup-clojure.el")
 (load "setup-js.el")
+
+;; Window resize on init
+(when window-system (set-frame-size (selected-frame) 115 65))
