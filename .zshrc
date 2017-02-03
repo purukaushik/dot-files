@@ -1,54 +1,128 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/pswaminathan/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="clean"
-# Plugins
-plugins=(git bundler brew docker emoji mvn node npm pip sbt python scala sudo javac scalac java gradle spark-shell hadoop hdfs mongo gunicorn)
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git brew bundler docker java python pip scala ruby zip sbt mvn gradle lein htop battery)
 
 # User configuration
 
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
-# ZSH source
 source $ZSH/oh-my-zsh.sh
 
-# MONGO
-export MONGODB_URI='mongodb://localhost:27017/db'
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-# POSTGRES APP
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
-# SPARK_HOME
-export SPARK_HOME=/usr/local/spark
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-# SPARK IN PATH
-export PATH=$PATH:$SPARK_HOME/bin
-export PATH="/usr/local/bin:$PATH"
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-#HADOOP 
-export HADOOP_HOME=/usr/local/hadoop
-export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#SPARK-NOTEBOOK
-export SPARK_NOTEBOOK_HOME=/Users/pswaminathan/Desktop/spark-notebook/
-export PATH=$PATH:$SPARK_NOTEBOOK_HOME/bin
-export JAVA_OPTS="-Xms256m -Xmx4g"
+export PATH="$HOME/.linuxbrew/bin:$PATH"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+export SCALA_HOME="/usr/share/scala-2.11.8"
+export PATH="$PATH:$SCALA_HOME/bin"
+export SPARK_HOME="/usr/local/spark/"
+export PATH="$PATH:$SPARK_HOME/bin"
+export HADOOP_HOME="/usr/local/hadoop-2.6.4"
+export PATH="$PATH:$HADOOP_HOME/bin"
+export ELASTIC_HOME="$HOME/elasticsearch-2.3.4"
+export PATH="$PATH:$ELASTIC_HOME/bin"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre"
+export KAFKA_HOME="$HOME/kafka_2.11-0.10.1.0"
+export PATH="$PATH:$KAFKA_HOME/bin/"
+export ACTIVATOR_HOME="/usr/local/activator-dist-1.3.12"
+export PATH="$PATH:$ACTIVATOR_HOME/bin/"
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+### Aliases
+alias pbcopy='xclip -selection clipboard'
+alias e='emacs'
+alias jrepl='/home/kaushik/jdk-9/bin/jshell'
+alias smj='src/main/java/'
+alias open='nautilus .'
+alias sms="src/main/scala/"
+alias volup="pactl -- set-sink-volume 1 +10%"
+alias voldwn="pactl -- set-sink-volume 1 -10%"
+alias li_up="xbacklight -inc 10"
+alias li_dwn="xbacklight -dec 10"
+### Clojuring
+export CLOJURE_PATH='/usr/share/clojure-1.8.0'
 
-export NVM_DIR="/Users/pswaminathan/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-DISABLE_LS_COLORS="true"
+### iPython
+#export PATH="/home/kaushik/anaconda2/bin:$PATH"
 
-
-export PATH=$PATH:$HOME/
-export HADOOP_CLASSPATH=$(hadoop classpath)
+#export PYSPARK_SUBMIT_ARGS='--master yarn --deploy-mode client --num-executors 24 --executor-memory 2g --executor-cores 2'
+#export PATH="/home/kaushik/anaconda2/bin:$PATH"
 
 # added by travis gem
-[ -f /Users/pswaminathan/.travis/travis.sh ] && source /Users/pswaminathan/.travis/travis.sh
+[ -f $HOME.travis/travis.sh ] && source $HOME/.travis/travis.sh
+
